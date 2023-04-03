@@ -1,8 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:http_app/Post.dart';
+import 'package:http_app/post.dart';
 
-class PostRepository{
+class PostRepository {
   final dio = Dio();
+
+  static PostRepository _instance = PostRepository._single();
+
+  PostRepository._single();
+  factory PostRepository(){
+    return _instance;
+  }
 
   Future<Post> findById(int id) async {
     Response response = await dio.get("https://jsonplaceholder.typicode.com/posts/$id");
